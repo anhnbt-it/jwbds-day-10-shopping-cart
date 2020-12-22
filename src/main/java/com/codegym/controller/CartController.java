@@ -58,6 +58,39 @@ public class CartController {
         }
         return "redirect:/cart";
     }
-    // remove cart
-    // update cart
+
+    @GetMapping("update-product/{id}/{qty}")
+    public String updateProduct(@PathVariable("id") Long id, @PathVariable("qty") Integer qty,
+                                @ModelAttribute("shoppingCart") Hashtable<Long, Product> shoppingCart,
+                                RedirectAttributes redirectAttributes) {
+        Product product = productService.findOne(id);
+        if (product != null && shoppingCart.containsKey(id)) {
+            if (product.getQty() < qty) {
+                redirectAttributes.addFlashAttribute("message", "Quantity exceeds quantity available in stock.");
+            } else {
+                // Neu ton tai san pham trong gio hang thi cap nhat lai so luong
+                product.setQty(qty);
+                redirectAttributes.addFlashAttribute("message", "Updated quantity success.");
+                shoppingCart.put(id, product);
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Product not found.");
+        }
+        return "redirect:/cart";
+    }
+
+    @GetMapping("remove-product/{id}")
+    public String removeProduct(@PathVariable("id") Long id,
+                                @ModelAttribute("shoppingCart") Hashtable<Long, Product> shoppingCart,
+                                RedirectAttributes redirectAttributes) {
+        Product product = productService.findOne(id);
+        if (product != null && shoppingCart.containsKey(id)) {
+                // Neu ton tai san pham trong gio hang thi xoa
+            shoppingCart.remove(id);
+            redirectAttributes.addFlashAttribute("message", "Remove product success.");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Product not found.");
+        }
+        return "redirect:/cart";
+    }
 }
