@@ -28,7 +28,7 @@ public class ProductController {
     @RequestMapping("product/{id}")
     public ModelAndView getProduct(@PathVariable("id") Long id) {
         Product product = productService.findOne(id);
-        ModelAndView modelAndView = new ModelAndView("view");
+        ModelAndView modelAndView = new ModelAndView("info");
         modelAndView.addObject("product", product);
         return modelAndView;
     }
