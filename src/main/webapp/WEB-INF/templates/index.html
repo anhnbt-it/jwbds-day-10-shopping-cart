@@ -15,7 +15,7 @@
                     <a class="card-title" th:href="@{/product/{id}(id=*{prod.id})}" th:text="*{prod.name}"></a>
                     <p><span th:text="*{'$' + prod.price}" class="text-danger"></span></p>
                     <div class="d-grid gap-2">
-                        <a th:href="@{/add-to-cart/{id}(id=*{prod.id})}" class="btn btn-primary btn-block">Add To Cart</a>
+                        <a th:href="@{/cart/add-product/{id}(id=*{prod.id})}" class="btn btn-primary btn-block">Add To Cart</a>
                     </div>
                 </div>
             </div>

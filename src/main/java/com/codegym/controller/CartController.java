@@ -38,22 +38,19 @@ public class CartController {
         return modelAndView;
     }
 
-    @GetMapping("add-to-cart/{id}")
-    public String addToCart(@PathVariable("id") Long id, @ModelAttribute("shoppingCart") Hashtable<Long, Product> shoppingCart, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView("cart");
+    @GetMapping("add-product/{id}")
+    public String addProduct(@PathVariable("id") Long id, @ModelAttribute("shoppingCart") Hashtable<Long, Product> shoppingCart, RedirectAttributes redirectAttributes) {
         Product product = productService.findOne(id);
         if (product != null) {
             if (shoppingCart.containsKey(id)) {
-                System.out.println("Updated quantity success");
                 // Neu ton tai san pham trong gio hang thi cap nhat lai so luong
                 Product productInCart = shoppingCart.get(id);
                 product.setQty(productInCart.getQty() + 1);
-                redirectAttributes.addFlashAttribute("message",   "Updated quantity success.");
+                redirectAttributes.addFlashAttribute("message", "Updated quantity success.");
             } else {
-                System.out.println("Add to cart successfully");
                 // Them san pham vao gio hang
                 product.setQty(1);
-                redirectAttributes.addFlashAttribute("message",   "Add to cart successfully.");
+                redirectAttributes.addFlashAttribute("message", "Add to cart successfully.");
             }
             shoppingCart.put(id, product);
         } else {
