@@ -65,7 +65,7 @@ public class CartController {
                                 RedirectAttributes redirectAttributes) {
         Product product = productService.findOne(id);
         if (product != null && shoppingCart.containsKey(id)) {
-            if (product.getQty() < qty && qty < 1) {
+            if (product.getQty() < qty || qty < 1) {
                 redirectAttributes.addFlashAttribute("message", "Quantity exceeds quantity available in stock.");
             } else {
                 // Neu ton tai san pham trong gio hang thi cap nhat lai so luong
