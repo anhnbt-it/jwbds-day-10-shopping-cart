@@ -27,7 +27,14 @@ public class CartController {
     @GetMapping
     public ModelAndView showCartLists(@ModelAttribute("shoppingCart") Hashtable<Long, Product> shoppingCart) {
         ModelAndView modelAndView = new ModelAndView("cart");
+        double amount = 0;
+        if (shoppingCart.size() > 0) {
+            for (Map.Entry cart : shoppingCart.entrySet()) {
+                amount += ((Product) cart.getValue()).getPrice() * ((Product) cart.getValue()).getQty();
+            }
+        }
         modelAndView.addObject("cart", shoppingCart);
+        modelAndView.addObject("amount", amount);
         return modelAndView;
     }
 
