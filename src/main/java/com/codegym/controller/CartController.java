@@ -24,7 +24,7 @@ public class CartController {
         return new Hashtable<>();
     }
 
-    @GetMapping("cart")
+    @GetMapping
     public ModelAndView showCartLists(@ModelAttribute("shoppingCart") Hashtable<Long, Product> shoppingCart) {
         ModelAndView modelAndView = new ModelAndView("cart");
         modelAndView.addObject("cart", shoppingCart);
