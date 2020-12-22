@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Shopping Cart <span class="badge badge-secondary" th:if="${cart.size() > 0}" th:text="${cart.size()}"></span> <a th:href="@{/}" class="btn btn-secondary btn-sm">Return to home</a></div>
+        <div class="card-body">
+
+            <div class="alert alert-success" th:if="${message != null}" th:text="${message}"></div>
+            <div class="alert alert-info" th:if="${cart.isEmpty()}">No item.</div>
+
+            <ul class="list-unstyled" th:unless="${#lists.isEmpty(cart)}">
+                <li class="" th:each="prod,iterStat : ${cart}" th:class="${iterStat.odd} ? 'media bg-info text-white' : 'media'">
+                    <img th:src="*{prod.value.image}" class="mr-3" width="75px" th:alt="*{prod.value.name}">
+                    <div class="media-body">
+                        <a class="mt-0 mb-1" th:href="@{/product/{id}(id=*{prod.value.id})}" th:text="*{prod.value.name}"></a>
+                        <p th:text="*{'Price: $' + prod.value.price}" class="text-danger mb-0"></p>
+                        <p th:text="*{'Quantity: ' + prod.value.qty}"></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

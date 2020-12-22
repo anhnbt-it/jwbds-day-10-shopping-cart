@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-12" th:if="${products.size == 0}"><div class="alert alert-info">No data.</div></div>
+        <div class="col-md-4 mb-2" th:each="prod: ${products}">
+            <div class="card shadow">
+                <img th:src="*{prod.image}" class="card-img-top" th:alt="*{prod.name}">
+                <div class="card-body">
+                    <a class="card-title" th:href="@{/product/{id}(id=*{prod.id})}" th:text="*{prod.name}"></a>
+                    <p><span th:text="*{'$' + prod.price}" class="text-danger"></span></p>
+                    <div class="d-grid gap-2">
+                        <a th:href="@{/add-to-cart/{id}(id=*{prod.id})}" class="btn btn-primary btn-block">Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+</body>
+</html>

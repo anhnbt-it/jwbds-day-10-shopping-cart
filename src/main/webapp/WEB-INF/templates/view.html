@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Display Product</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-header" th:text="*{product.name}"></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img th:src="${product.image}" class="img-fluid" th:alt="${product.name}">
+                    </div>
+                    <div class="col-md-8">
+                        <p>Price: <span th:text="${product.price}" class="text-danger"></span></p>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check-circle text-success"></i> Phụ kiện Apple mua kèm giảm đến 30% (không áp dụng đồng thời khuyến mãi khác) Xem chi tiết</li>
+                                    <li><i class="fas fa-check-circle text-success"></i> Pin sạc dự phòng giảm 30% khi mua kèm. (click xem chi tiết)</li>
+                                    <li><i class="fas fa-check-circle text-success"></i> Phiếu Mua Máy Lọc Nước Kangaroo, Karofi, Sunhouse, KoriHome Trị Giá 300,000đ (EV). (click xem chi tiết)</li>
+                                    <li><i class="fas fa-check-circle text-success"></i> Mua Đồng hồ thời trang giảm 40% (không kèm KM khác)</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <a th:href="@{/add-to-cart/{id}(id=${product.id})}" class="btn btn-primary btn-block">Add To Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
